@@ -178,7 +178,7 @@ $p$ &mdash; число процессоров
 
 Основных минуса у подобных систем только два:
 
-* Подготовка и постановка задачи для брокера занимает время 
+* Подготовка и постановка задачи для брокера занимает время
 * Подготовка и постановка задачи в очередь занимает ресурсы
 * Нужно следить за состоянием задачи
 
@@ -208,7 +208,7 @@ from celery import Celery
 
 app = Celery(
     'example-tasks',
-    broker="redis://localhost",  
+    broker="redis://localhost",
     backend="redis://localhost"
 )
 
@@ -288,7 +288,7 @@ job = q.enqueue(len, ['vicky', 'cristina', 'barcelona'])
 while job.result is None:
     time.sleep(1)
 
-print(job.result) 
+print(job.result)
 ```
 
 ```bash
@@ -321,7 +321,7 @@ rq worker  # тот же PYTHONPATH
 
 Если что, пишите:
 
-* twitter/telegram @shripmsizemoose
+* twitter/telegram @shrimpsizemoose
 * fb.me/imosyagin
 * :email: igor@mosyag.in
 * :link: https://newpodcast2.live
