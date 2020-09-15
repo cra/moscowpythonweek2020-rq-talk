@@ -59,3 +59,46 @@ docker run --name demo-redis -p 6379:6379 -d redis
 ```
 (venv) rq worker
 ```
+
+Дашборд ставится с помощью `pip install rq-dashboard` и запускается так же:
+```
+(venv) rq-dashboard
+```
+
+### Кастомный воркер
+
+Для работы воркеру нужны все переменные окружения и работающая django, и просто так скорее всего `rq worker` не запустится. Поэтому нужно сделать простую обёртку над ним:
+
+```
+#!/usr/bin/env python
+import os
+import sys
+
+import django
+
+from rq import Connection, Worker
+
+if __name__ == '__main__':
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mailsender.settings')
+    django.setup()
+
+    with Connection():
+        qs = sys.argv[1:] or ['default']
+
+        w = Worker(qs)
+        w.work()
+```
+
+(этот скрипт лежит рядом с `manage.py` под названием `rq_worker.py`)
+
+Пример вывода:
+```
+(venv) $ python rq_worker.py
+10:35:14 Worker rq:worker:ccc4d972c7fe4e65a06b8bded83e7db4: started, version 1.5.2
+10:35:14 *** Listening on default...
+10:35:23 default: pochta_badger.mail_tools.slow_mail_send(<Campaign: Campaign object (4)>) (d7836d00-78d2-49cb-b9dd-dddb3ad320f8)
+Got email with test
+10:35:26 default: Job OK (d7836d00-78d2-49cb-b9dd-dddb3ad320f8)
+10:35:26 Result is kept for 500 seconds
+```
+
