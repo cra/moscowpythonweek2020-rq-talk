@@ -1,0 +1,6 @@
+*.code-workspace
+**/*.pdf
+**/*.sqlite3
+**/*.py[co]
+JUNK.md
+venv

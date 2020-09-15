@@ -1,0 +1,7 @@
+List of our campaigns
+
+{% for email in object_list %}
+<h3>Campaign #{{ forloop.counter }}</h3>
+
+{{ email.message_rendered | safe }}
+{% endfor %}

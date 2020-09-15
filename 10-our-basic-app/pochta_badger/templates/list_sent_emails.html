@@ -1,0 +1,9 @@
+{% load markdown_extras %}
+
+Hello there
+
+{% for email in object_list %}
+<h3>{{ forloop.counter }}. Email</h3>
+
+{{ email | markdown | safe }}
+{% endfor %}
